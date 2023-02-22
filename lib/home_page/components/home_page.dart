@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               const StatisticOfExpenses(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               const TransactionsView(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(

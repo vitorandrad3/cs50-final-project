@@ -30,7 +30,7 @@ class StatisticBar extends StatelessWidget {
           ),
           const Spacer(),
           SizedBox(
-            height: 80,
+            height: MediaQuery.of(context).size.height * 0.1,
             width: 12,
             child: Stack(
               alignment: AlignmentDirectional.bottomEnd,
