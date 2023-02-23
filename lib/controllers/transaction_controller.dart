@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:despesas_pessoais/models/transaction_model.dart';
+import 'package:despesas_pessoais/domain/transaction_model.dart';
 import 'package:flutter/widgets.dart';
 
 class TransactionListController extends ChangeNotifier {

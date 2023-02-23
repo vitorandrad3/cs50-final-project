@@ -2,7 +2,7 @@ import 'package:despesas_pessoais/controllers/transaction_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/transaction_model.dart';
+import '../domain/transaction_model.dart';
 
 class StatisticController extends ChangeNotifier {
   static StatisticController statisticController = StatisticController();

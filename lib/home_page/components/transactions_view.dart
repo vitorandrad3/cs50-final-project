@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:despesas_pessoais/controllers/statistic_controller.dart';
-import 'package:despesas_pessoais/models/transaction_model.dart';
+import 'package:despesas_pessoais/domain/transaction_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../controllers/transaction_controller.dart';
