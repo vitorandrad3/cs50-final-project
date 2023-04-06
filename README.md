@@ -1,6 +1,6 @@
 # despesas_pessoais
 
-#### Video Demo: <> 
+#### Video Demo: <https://youtu.be/x7rN4x5m8rY> 
 #### Description:
 This is my final CS50 project: a simple personal expense app made in Flutter, using the Dart language.
 The application features a main graph that shapes itself according to the user's spending over the current week, which can be changed to show spending in the current month, it also features a button to add new transactions and a reserved part to show the cards with the details of every transaction made in the last 7 days.
