@@ -16,8 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15),
-      width: MediaQuery.of(context).size.width * 0.88,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFormField(
         validator: (value) {
           return value!.isEmpty ? validatorMessage : null;
@@ -25,8 +24,16 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: textInputType,
         onSaved: onSaved,
         decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Color(0xff01aed6)),
+          ),
           hintText: title,
-          fillColor: Theme.of(context).colorScheme.inversePrimary,
+          filled: true,
+          fillColor: Colors.white,
         ),
       ),
     );

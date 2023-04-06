@@ -1,67 +1,100 @@
+import 'package:despesas_pessoais/domain/transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard(
-      {super.key, required this.name, required this.value, required this.date});
+  const CustomCard({
+    super.key,
+    required this.transaction,
+  });
 
-  final String name;
-  final double value;
-  final DateTime date;
+  final Transaction transaction;
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-      height: MediaQuery.of(context).size.height * 0.15,
+      height: 130,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: const Offset(0, 1),
+          )
+        ],
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(60),
+          topLeft: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: 20),
-          Container(
-            width: 90,
-            height: 90,
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white70, width: 4),
-              shape: BoxShape.circle,
-              color: Theme.of(context).primaryColor,
-            ),
-            child: FittedBox(
-              child: Text(
-                'R\$ ${value.toStringAsFixed(2)}',
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.white70),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 70,
-          ),
-          Flexible(
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
                 Text(
-                  name,
-                  style: const TextStyle(fontSize: 16),
-                  overflow: TextOverflow.ellipsis,
+                  'Valor:',
+                  style: textTheme.titleSmall!
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
-                const Spacer(),
+                const SizedBox(height: 6),
                 Text(
-                  'Data: ${DateFormat('d MMM y').format(date)}',
-                  style: const TextStyle(fontSize: 10),
+                  'R\$ ${transaction.value.toStringAsFixed(2)}',
+                  style: textTheme.headlineSmall!.copyWith(
+                    color: const Color(0xff2b72a2),
+                  ),
                 ),
+                const SizedBox(height: 12),
+                Text(
+                  'Data:',
+                  style: textTheme.titleSmall!
+                      .copyWith(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  DateFormat('d MMM y').format(transaction.date),
+                  style: textTheme.bodySmall!.copyWith(
+                    color: const Color(0xff2b72a2).withOpacity(.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: VerticalDivider(
+                thickness: 1,
+              )),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Descrição:',
+                  style: textTheme.titleSmall!
+                      .copyWith(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 8),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
+                  width: 150,
+                  child: Text(
+                    transaction.description,
+                    overflow: TextOverflow.clip,
+                    style: textTheme.caption!.copyWith(
+                      color: const Color(0xff2b72a2),
+                    ),
+                  ),
+                )
               ],
             ),
           )
