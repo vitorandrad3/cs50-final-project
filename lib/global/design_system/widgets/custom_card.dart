@@ -8,7 +8,7 @@ class CustomCard extends StatelessWidget {
     required this.transaction,
   });
 
-  final Transaction transaction;
+  final MyTransaction transaction;
 
   @override
   Widget build(BuildContext context) {

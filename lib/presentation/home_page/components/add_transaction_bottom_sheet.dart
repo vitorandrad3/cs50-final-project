@@ -1,7 +1,8 @@
+import 'package:despesas_pessoais/controller/statistic_controller.dart';
 import 'package:despesas_pessoais/global/design_system/constants/sizes.dart';
 import 'package:despesas_pessoais/global/design_system/widgets/box_spacer.dart';
 import 'package:despesas_pessoais/controller/transaction_controller.dart';
-import 'package:despesas_pessoais/widgets/custom_text_field.dart';
+import 'package:despesas_pessoais/global/design_system/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,7 +14,7 @@ class AddTransation extends StatefulWidget {
 }
 
 class _AddTransationState extends State<AddTransation> {
-  String valueTranscation = '';
+  String valueTransaction = '';
   String nameTransaction = '';
   DateTime datePicked = DateTime.now();
 
@@ -64,7 +65,7 @@ class _AddTransationState extends State<AddTransation> {
                       validatorMessage: 'Informe o valor',
                       textInputType: TextInputType.number,
                       onSaved: (value) {
-                        valueTranscation = value!;
+                        valueTransaction = value!;
                       },
                       title: 'Valor (R\$)',
                     ),
@@ -119,7 +120,7 @@ class _AddTransationState extends State<AddTransation> {
                       TransactionListController.transactionsListController
                           .addTransaction(
                         nameTransaction,
-                        double.parse(valueTranscation),
+                        double.parse(valueTransaction),
                         datePicked,
                       );
                       _formKey.currentState!.reset();

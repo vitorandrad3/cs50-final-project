@@ -2,9 +2,8 @@ import 'package:despesas_pessoais/global/design_system/constants/sizes.dart';
 import 'package:despesas_pessoais/global/design_system/widgets/box_spacer.dart';
 import 'package:despesas_pessoais/domain/transaction_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../../controller/transaction_controller.dart';
-import '../../../widgets/custom_card.dart';
+import '../../../global/design_system/widgets/custom_card.dart';
 
 class TransactionsView extends StatefulWidget {
   const TransactionsView({super.key});
@@ -30,7 +29,7 @@ class _TransactionsViewState extends State<TransactionsView> {
       height: isTranscationsEmpty
           ? Sizes.transactionsViewHeigthLarge
           : TransactionListController.transactionsListController
-                  .transactionsOfLastSevenDays.length *
+                  .transactionsOfLastSevenDaysList.length *
               Sizes.transactionsViewHeigthLarge,
       child: isTranscationsEmpty
           ? Center(
@@ -62,9 +61,9 @@ class _TransactionsViewState extends State<TransactionsView> {
                     background: Container(
                       color: Theme.of(context).colorScheme.error,
                       child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: Sizes.paddingxLarge,
-                            horizontal: Sizes.paddingMedium),
+                        padding: EdgeInsets.only(
+                            top: Sizes.paddingxLarge,
+                            left: Sizes.paddingMedium),
                         child: Text(
                           'EXCLUIR TRANSAÇÃO',
                           style: TextStyle(
@@ -72,12 +71,16 @@ class _TransactionsViewState extends State<TransactionsView> {
                         ),
                       ),
                     ),
-                    key: ValueKey<Transaction>(TransactionListController
+                    key: ValueKey<MyTransaction>(TransactionListController
                         .transactionsListController.transactionList[index]),
                     onDismissed: (direction) => setState(
                       () {
                         TransactionListController.transactionsListController
                             .removeTransaction(index);
+
+                        TransactionListController
+                            .transactionsListController.transactionList
+                            .removeAt(index);
                       },
                     ),
                     child: CustomCard(

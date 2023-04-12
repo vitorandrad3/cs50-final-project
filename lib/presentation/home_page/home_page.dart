@@ -4,7 +4,6 @@ import 'package:despesas_pessoais/presentation/home_page/components/add_transact
 import 'package:despesas_pessoais/presentation/home_page/components/custom_line_chart/custom_line_chart.dart';
 import 'package:despesas_pessoais/presentation/home_page/components/last_transactions_view.dart';
 import 'package:flutter/material.dart';
-
 import '../../controller/statistic_controller.dart';
 import 'components/custom_drawer/custom_drawer.dart';
 
@@ -16,6 +15,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    TransactionListController.transactionsListController.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +59,8 @@ class _HomePageState extends State<HomePage> {
                       builder: (context, child) {
                         return Text(
                           StatisticController.statisticController.chartType
-                              ? 'Total:  R\$${StatisticController.statisticController.sumOfWeekValues().toStringAsFixed(2)}'
-                              : 'Total:  R\$${StatisticController.statisticController.sumOfMonthValues().toStringAsFixed(2)}',
+                              ? 'Total:  R\$${StatisticController.statisticController.sumOfWeekValues}'
+                              : 'Total:  R\$${StatisticController.statisticController.sumOfMonthValues}',
                           style: Theme.of(context)
                               .textTheme
                               .caption!

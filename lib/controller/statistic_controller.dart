@@ -7,9 +7,15 @@ import '../domain/transaction_model.dart';
 class StatisticController extends ChangeNotifier {
   static StatisticController statisticController = StatisticController();
 
-  List<FlSpot> get weekChartData {
+  List<FlSpot> weekChartData = [];
+
+  getWeekChartData() async {
+    final List<MyTransaction> transactionsOfLastSevenDays =
+        await TransactionListController
+            .transactionsListController.transactionsOfLastSevenDays;
+
     final currentWeekDay = DateTime.now().weekday;
-    return List.generate(
+    weekChartData = List.generate(
       currentWeekDay,
       (index) {
         final lastestWeekday = DateTime.now().subtract(
@@ -17,18 +23,21 @@ class StatisticController extends ChangeNotifier {
         );
         return FlSpot(
           lastestWeekday.weekday.toDouble(),
-          sumOfDayValues(
-              TransactionListController
-                  .transactionsListController.transactionsOfLastSevenDays,
-              lastestWeekday),
+          sumOfDayValues(transactionsOfLastSevenDays, lastestWeekday),
         );
       },
     );
+    notifyListeners();
   }
 
-  List<FlSpot> get monthChartData {
+  List<FlSpot> monthChartData = [];
+
+  getMonthChartData() async {
+    final transactionsOfCurrentMonth = await TransactionListController
+        .transactionsListController.transactionsOfCurrentMonth;
+
     final currentMonthDay = DateTime.now().day;
-    return List.generate(
+    monthChartData = List.generate(
       currentMonthDay,
       (index) {
         final lastestMonthDay = DateTime.now().subtract(
@@ -36,16 +45,15 @@ class StatisticController extends ChangeNotifier {
         );
         return FlSpot(
           lastestMonthDay.day.toDouble(),
-          sumOfDayValues(
-              TransactionListController
-                  .transactionsListController.transactionsOfCurrentMonth,
-              lastestMonthDay),
+          sumOfDayValues(transactionsOfCurrentMonth, lastestMonthDay),
         );
       },
     );
+    notifyListeners();
   }
 
-  double sumOfDayValues(List<Transaction> recentTransactions, currentWeekDay) {
+  double sumOfDayValues(
+      List<MyTransaction> recentTransactions, currentWeekDay) {
     double totalSumDay = Numbers.initVarialble;
     for (int i = 0; i < recentTransactions.length; i++) {
       bool sameDay = recentTransactions[i].date.day == currentWeekDay.day;
@@ -60,23 +68,19 @@ class StatisticController extends ChangeNotifier {
         : totalSumDay;
   }
 
-  double sumOfWeekValues() {
+  double sumOfWeekValues = 0;
+
+  getSumOfWeekValues() async {
     double totalSumWeek = Numbers.initVarialble;
-    for (int i = 0;
-        i <
-            TransactionListController
-                .transactionsListController.transactionsOfLastSevenDays.length;
-        i++) {
-      if (isSameWeek(
-          TransactionListController
-              .transactionsListController.transactionsOfLastSevenDays[i].date,
-          DateTime.now())) {
-        totalSumWeek += TransactionListController
-            .transactionsListController.transactionsOfLastSevenDays[i].value;
+    final transactions = await TransactionListController
+        .transactionsListController.transactionsOfLastSevenDays;
+    for (int i = 0; i < transactions.length; i++) {
+      if (isSameWeek(transactions[i].date, DateTime.now())) {
+        totalSumWeek += transactions[i].value;
       }
     }
 
-    return totalSumWeek;
+    sumOfWeekValues = totalSumWeek;
   }
 
   bool isSameWeek(DateTime date1, DateTime date2) {
@@ -92,24 +96,32 @@ class StatisticController extends ChangeNotifier {
     }
   }
 
-  double sumOfMonthValues() {
+  double sumOfMonthValues = 0;
+
+  getSumOfMonthValues() async {
+    final transactionsOfCurrentMonth = await TransactionListController
+        .transactionsListController.transactionsOfCurrentMonth;
+
     double totalMonthWeek = 0;
-    for (int i = 0;
-        i <
-            TransactionListController
-                .transactionsListController.transactionsOfCurrentMonth.length;
-        i++) {
-      totalMonthWeek += TransactionListController
-          .transactionsListController.transactionsOfCurrentMonth[i].value;
+    for (int i = 0; i < transactionsOfCurrentMonth.length; i++) {
+      totalMonthWeek += transactionsOfCurrentMonth[i].value;
     }
 
-    return totalMonthWeek;
+    sumOfMonthValues = totalMonthWeek;
   }
 
   bool chartType = true;
 
   void changeChartType(value) {
     chartType = value;
+    notifyListeners();
+  }
+
+  initStatistic() {
+    getSumOfMonthValues();
+    getSumOfWeekValues();
+    getMonthChartData();
+    getWeekChartData();
     notifyListeners();
   }
 }

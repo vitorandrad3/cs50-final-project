@@ -1,5 +1,5 @@
 class Sizes {
-  //Padding
+//Padding
   static const double paddingMedium = 16;
   static const double paddingxMedium = 24;
   static const double paddingLarge = 32;

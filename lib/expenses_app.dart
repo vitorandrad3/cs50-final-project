@@ -1,11 +1,18 @@
 import 'package:despesas_pessoais/presentation/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 
+import 'controller/statistic_controller.dart';
+import 'controller/transaction_controller.dart';
+
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TransactionListController.transactionsListController.getTransactions();
+    TransactionListController.transactionsListController
+        .getTransactionsOfLastSevenDayslist();
+    StatisticController.statisticController.initStatistic();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
