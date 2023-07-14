@@ -2,13 +2,13 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../domain/transaction_model.dart';
 
+
 class TransactionDatabase {
-  static final TransactionDatabase instance = TransactionDatabase.init();
+  static final TransactionDatabase instance = TransactionDatabase();
+
   static Database? _database;
 
-  TransactionDatabase.init();
-
-  Future<Database> initDB(String filePath) async {
+   Future<Database> initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 

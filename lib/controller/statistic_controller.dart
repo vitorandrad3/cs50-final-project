@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../domain/transaction_model.dart';
 
 class StatisticController extends ChangeNotifier {
+
   static StatisticController statisticController = StatisticController();
 
   List<FlSpot> weekChartData = [];
